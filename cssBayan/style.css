@@ -1,12 +1,12 @@
 :root {
-  --active-text-color: #000000;
-  --not-active-text-color: #0daaee;
+  --main-text-color: #000000;
+  --hover-text-color: #0daaee;
   --pc-heading-font-size: 3rem;
-  --tablet-heading-font-size: 3rem;
-  --mobile-heading-font-size: 3rem;
+  --tablet-heading-font-size: 2.5rem;
+  --mobile-heading-font-size: 2rem;
   --pc-subheading-font-size: 2rem;
-  --tablet-subheading-font-size: 2rem;
-  --mobile-subheading-font-size: 2rem;
+  --tablet-subheading-font-size: 1.5rem;
+  --mobile-subheading-font-size: 1rem;
 }
 
 * {
@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
   max-width: 55rem;
   width: 100%;
   height: 100%;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
 }
 
 .bayan {
@@ -58,7 +58,7 @@ body::-webkit-scrollbar {
 .bayan__title {
   font-size: var(--pc-heading-font-size);
   font-weight: 900;
-  color: var(--active-text-color);
+  color: var(--main-text-color);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.5rem;
@@ -94,86 +94,110 @@ body::-webkit-scrollbar {
 .bayan-item__title {
   font-size: var(--pc-subheading-font-size);
   font-weight: 700;
-  color: var(--not-active-text-color);
+  color: var(--main-text-color);
   transition: color 0.2s;
 }
 
 .bayan-item__icon {
-  opacity: 0;
+  opacity: 1;
   width: 2rem;
   height: 2rem;
-  background: url('./assets/svg/show.svg') 50% 50% / cover no-repeat;
-  transition: background 0.3s, opacity 0.3s;
+  background: url('./assets/svg/cross.svg') 50% 50% / cover no-repeat;
+  transition: background 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+.bayan-item__image-wrapper {
+  display: flex;
+  place-items: center;
+  width: 100%;
+  height: auto;
 }
 
 .bayan-item__image {
-  display: inline-block;
-  vertical-align: top;
-  width: auto;
-  height: 0;
+  width: 100%;
+  height: auto;
+  max-height: 0;
   margin-bottom: 0.5rem;
   opacity: 0;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
-  transition: opacity 0.5s, height 0.4s ease-in-out, width 0.4s ease-in-out,
-    transform 0.2s ease-in-out, filter 0.2s ease-in-out, box-shadow 0.2s;
+  vertical-align: top;
   object-fit: contain;
-  background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(2px);
+  transition: opacity 0.5s, max-height 0.4s ease-in-out, height 0.4s ease-in-out,
+    width 0.4s ease-in-out, transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
 
 .bayan-item:has(.bayan-item__input:checked) .bayan-item__image {
   opacity: 1;
-  height: 60vh;
+  max-height: 60vh;
 }
 
 .bayan-item:has(.bayan-item__input:checked) .bayan-item__label {
 }
 
 .bayan-item:has(.bayan-item__input:checked) .bayan-item__icon {
-  background-image: url('./assets/svg/hide.svg');
+  transform: rotate(315deg);
 }
 
 .bayan-item:has(.bayan-item__input:checked) .bayan-item__title {
-  color: var(--active-text-color);
-}
-
-/* PC */
-@media screen and (hover: hover) and (min-width: 821px) {
-  .bayan__list:hover .bayan-item__icon {
-    opacity: 1;
-  }
-  .bayan__list:hover .bayan-item__title {
-    color: var(--active-text-color);
-  }
-  .bayan-item:hover .bayan-item__image {
-    opacity: 1;
-    height: 60vh;
-  }
-}
-
-@media screen and (max-width: 820px) {
-  .bayan-item__icon {
-    opacity: 1;
-  }
-  .bayan-item__title {
-    color: var(--not-active-text-color);
-  }
-  .container {
-    padding: 1rem;
-  }
+  color: var(--main-text-color);
 }
 
 .bayan-item:active {
   filter: opacity(70%);
 }
+
 .bayan-item:active .bayan-item__title {
   text-shadow: 0.15rem 0.15rem #ff0062, -0.15rem -0.15rem #00c4ff;
 }
 
 .bayan-item:active .bayan-item__image {
   transform: scale(0.95);
-  box-shadow: none;
   filter: grayscale(50%);
-  backdrop-filter: none;
-  background-color: transparent;
+}
+
+/* for not-touch devices */
+@media screen and (hover: hover) {
+  .bayan-item__icon {
+    opacity: 0;
+  }
+  .bayan-item__title {
+    color: var(--hover-text-color);
+  }
+  .bayan__list:hover .bayan-item__icon {
+    opacity: 1;
+  }
+  .bayan__list:hover .bayan-item__title {
+    color: var(--main-text-color);
+  }
+  .bayan-item:hover .bayan-item__image {
+    opacity: 1;
+    max-height: 60vh;
+  }
+}
+
+/* TABLET */
+@media screen and (min-width: 425px) and (max-width: 821px) {
+  .bayan__title {
+    font-size: var(--tablet-heading-font-size);
+  }
+  .bayan-item__title {
+    font-size: var(--tablet-subheading-font-size);
+  }
+  .bayan-item__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* MOBILE */
+@media screen and (min-width: 319px) and (max-width: 425px) {
+  .bayan__title {
+    font-size: var(--mobile-heading-font-size);
+  }
+  .bayan-item__title {
+    font-size: var(--mobile-subheading-font-size);
+  }
+  .bayan-item__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 }
